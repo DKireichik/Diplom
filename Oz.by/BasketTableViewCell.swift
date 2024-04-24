@@ -19,7 +19,6 @@ class TableViewCell: UITableViewCell {
     
     let labelImage = {
         let label = UILabel()
-
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

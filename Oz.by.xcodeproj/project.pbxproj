@@ -22,8 +22,11 @@
 		4BDC56FB2BD11A99008C58C8 /* HomeCollectionViewCellBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FA2BD11A99008C58C8 /* HomeCollectionViewCellBooks.swift */; };
 		4BDC56FD2BD11AC7008C58C8 /* HeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionViewCell.swift */; };
 		4BDC56FF2BD24A4A008C58C8 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */; };
-		4BDC57012BD69346008C58C8 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57002BD69346008C58C8 /* Information.swift */; };
+		4BDC57012BD69346008C58C8 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57002BD69346008C58C8 /* Source.swift */; };
 		4BDC57052BD6BF36008C58C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */; };
+		4BDC57072BD79CC5008C58C8 /* HomeCollectionViewCellPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57062BD79CC5008C58C8 /* HomeCollectionViewCellPageControl.swift */; };
+		4BDC57092BD91893008C58C8 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57082BD91893008C58C8 /* ProductViewController.swift */; };
+		4BDC570B2BD9217A008C58C8 /* ProductCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC570A2BD9217A008C58C8 /* ProductCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +47,11 @@
 		4BDC56FA2BD11A99008C58C8 /* HomeCollectionViewCellBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCellBooks.swift; sourceTree = "<group>"; };
 		4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
-		4BDC57002BD69346008C58C8 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
+		4BDC57002BD69346008C58C8 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		4BDC57062BD79CC5008C58C8 /* HomeCollectionViewCellPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCellPageControl.swift; sourceTree = "<group>"; };
+		4BDC57082BD91893008C58C8 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		4BDC570A2BD9217A008C58C8 /* ProductCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,12 +87,13 @@
 				4BDC56D92BD11904008C58C8 /* AppDelegate.swift */,
 				4BDC56DB2BD11904008C58C8 /* SceneDelegate.swift */,
 				4BDC56F62BD11A77008C58C8 /* HomeCollectionViewCellNews.swift */,
+				4BDC57062BD79CC5008C58C8 /* HomeCollectionViewCellPageControl.swift */,
 				4BDC56F82BD11A87008C58C8 /* HomeCollectionViewCellDiscont.swift */,
 				4BDC56FA2BD11A99008C58C8 /* HomeCollectionViewCellBooks.swift */,
 				4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionViewCell.swift */,
 				4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */,
 				4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */,
-				4BDC57002BD69346008C58C8 /* Information.swift */,
+				4BDC57002BD69346008C58C8 /* Source.swift */,
 				4BDC56F52BD11A3A008C58C8 /* Controllers */,
 				4BDC56DF2BD11904008C58C8 /* Main.storyboard */,
 				4BDC56E22BD11905008C58C8 /* Assets.xcassets */,
@@ -102,6 +109,8 @@
 				4BDC56ED2BD1193C008C58C8 /* TabBarController.swift */,
 				4BDC56DD2BD11904008C58C8 /* HomeViewController.swift */,
 				4BDC56EF2BD1195A008C58C8 /* SearchViewController.swift */,
+				4BDC57082BD91893008C58C8 /* ProductViewController.swift */,
+				4BDC570A2BD9217A008C58C8 /* ProductCollectionViewController.swift */,
 				4BDC56F12BD11A1E008C58C8 /* BasketViewController.swift */,
 				4BDC56F32BD11A32008C58C8 /* FavoritesViewController.swift */,
 			);
@@ -184,13 +193,16 @@
 				4BDC56F92BD11A87008C58C8 /* HomeCollectionViewCellDiscont.swift in Sources */,
 				4BDC56F22BD11A1E008C58C8 /* BasketViewController.swift in Sources */,
 				4BDC56F02BD1195A008C58C8 /* SearchViewController.swift in Sources */,
-				4BDC57012BD69346008C58C8 /* Information.swift in Sources */,
+				4BDC57012BD69346008C58C8 /* Source.swift in Sources */,
+				4BDC570B2BD9217A008C58C8 /* ProductCollectionViewController.swift in Sources */,
+				4BDC57092BD91893008C58C8 /* ProductViewController.swift in Sources */,
 				4BDC56FB2BD11A99008C58C8 /* HomeCollectionViewCellBooks.swift in Sources */,
 				4BDC56F42BD11A32008C58C8 /* FavoritesViewController.swift in Sources */,
 				4BDC56DE2BD11904008C58C8 /* HomeViewController.swift in Sources */,
 				4BDC56EE2BD1193C008C58C8 /* TabBarController.swift in Sources */,
 				4BDC56DA2BD11904008C58C8 /* AppDelegate.swift in Sources */,
 				4BDC56DC2BD11904008C58C8 /* SceneDelegate.swift in Sources */,
+				4BDC57072BD79CC5008C58C8 /* HomeCollectionViewCellPageControl.swift in Sources */,
 				4BDC56FD2BD11AC7008C58C8 /* HeaderCollectionViewCell.swift in Sources */,
 				4BDC57052BD6BF36008C58C8 /* SearchTableViewCell.swift in Sources */,
 			);

@@ -15,6 +15,8 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
     
     let imageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -73,11 +75,6 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
             basketButton.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 5),
             basketButton.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor, constant: -8),
         ])
-       
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-
-        
     }
     @objc func addToBasket (_ sender : UIButton) {
         pressedButton?(self)

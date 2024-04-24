@@ -16,28 +16,18 @@ class HomeCollectionViewCellNews: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    let pageControl = {
-        let pageControl =  UIPageControl()
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.pageIndicatorTintColor = UIColor.lightGray
-        pageControl.currentPageIndicatorTintColor = UIColor.orange
-        return pageControl
-    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         contentView.addSubview(imageView)
-        contentView.addSubview(pageControl)
 
         NSLayoutConstraint.activate([
 
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -25),
-            pageControl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            pageControl.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5)
-        
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         imageView.contentMode = .scaleAspectFill
         
