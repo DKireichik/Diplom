@@ -13,6 +13,8 @@ class HomeCollectionViewCellNews: UICollectionViewCell {
     
     let imageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -23,13 +25,11 @@ class HomeCollectionViewCellNews: UICollectionViewCell {
         contentView.addSubview(imageView)
 
         NSLayoutConstraint.activate([
-
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-        imageView.contentMode = .scaleAspectFill
         
     }
     

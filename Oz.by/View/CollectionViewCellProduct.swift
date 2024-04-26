@@ -7,11 +7,11 @@
 
 import UIKit
 
-class HomeCollectionViewCellBooks: UICollectionViewCell {
+class CollectionViewCellProduct: UICollectionViewCell {
     
-    var pressedButton: ((HomeCollectionViewCellBooks) -> ())?
+ 
     
-    static let id = "HomeCollectionViewCellBooks"
+    static let id = "CollectionViewCellProduct"
     
     let imageView = {
         let imageView = UIImageView()
@@ -21,7 +21,7 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
         return imageView
     }()
     
-    let labelImage = {
+    let labelImageProduct = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
         basketButton.setImage(UIImage(systemName: "cart"), for: .normal)
         basketButton.translatesAutoresizingMaskIntoConstraints = false
         basketButton.tintColor = .orange
-        basketButton.addTarget(HomeCollectionViewCellBooks.self, action: #selector(addToBasket), for: .touchUpInside)
+        basketButton.addTarget(CollectionViewCellProduct.self, action: #selector(addToBasket), for: .touchUpInside)
         return basketButton
     }()
   
@@ -51,23 +51,19 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.addSubview(imageView)
-        contentView.addSubview(labelImage)
+        contentView.addSubview(labelImageProduct)
         contentView.addSubview(price)
         contentView.addSubview(basketButton)
         contentView.addSubview(productAvailability)
-        
-      
-        
         NSLayoutConstraint.activate([
-
             imageView.topAnchor.constraint(equalTo:  contentView.topAnchor,constant: 15),
             imageView.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor,constant: -20),
             imageView.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor,constant: 20),
             imageView.bottomAnchor.constraint(equalTo:  contentView.bottomAnchor,constant: -80),
-            labelImage.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            labelImage.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
-            labelImage.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor),
-            price.topAnchor.constraint(equalTo: labelImage.bottomAnchor, constant: 5),
+            labelImageProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            labelImageProduct.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
+            labelImageProduct.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor),
+            price.topAnchor.constraint(equalTo: labelImageProduct.bottomAnchor, constant: 5),
             price.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
             price.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor),
             productAvailability.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 5),
@@ -77,10 +73,9 @@ class HomeCollectionViewCellBooks: UICollectionViewCell {
         ])
     }
     @objc func addToBasket (_ sender : UIButton) {
-        pressedButton?(self)
+  
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

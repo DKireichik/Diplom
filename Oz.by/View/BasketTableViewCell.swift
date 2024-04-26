@@ -34,9 +34,10 @@ class TableViewCell: UITableViewCell {
         basketButton.setImage(UIImage(systemName: "trash"), for: .normal)
         basketButton.translatesAutoresizingMaskIntoConstraints = false
         basketButton.tintColor = .gray
+        basketButton.addTarget(TableViewCell.self, action: #selector(deleteBasket), for: .touchUpInside)
         return basketButton
     }()
-    
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,6 +70,8 @@ class TableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    @objc func deleteBasket (_ sender : UIButton) {
+  
+    }
 }
     

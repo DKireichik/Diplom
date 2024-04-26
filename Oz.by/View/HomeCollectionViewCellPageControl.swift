@@ -21,18 +21,12 @@ class HomeCollectionViewCellPageControl: UICollectionViewCell {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-
         contentView.addSubview(pageControl)
-
         NSLayoutConstraint.activate([
             pageControl.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             pageControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-
-        
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

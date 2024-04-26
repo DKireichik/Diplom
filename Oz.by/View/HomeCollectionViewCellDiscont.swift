@@ -16,15 +16,11 @@ class HomeCollectionViewCellDiscounts: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-  
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         contentView.addSubview(imageView)
-     
         NSLayoutConstraint.activate([
-
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

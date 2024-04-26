@@ -9,19 +9,18 @@ import UIKit
 
 class Preview {
     var headerLabelText: [String] = ["","","Истории","Книги"]
-    var discontImage: [UIImage] = [.news,.news,.news,.news,]
-    var newsImage: [UIImage] = [.news,.news,.news,]
+    var discontImage: [UIImage] = [.discont1,.news1,.news2]
+    var newsImage: [UIImage] = [.news,.news1,.news2]
 }
-let storeGoods = SearchViewController()
-private let searchController  = UISearchController(searchResultsController: storeGoods)
+
+private let searchController  = UISearchController(searchResultsController: SearchViewController())
 
 class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource{
    
     let preview = Preview()
     lazy var collectionView = UICollectionView (frame: .zero,
                                                 collectionViewLayout: getCompositionalLayout())
-    
-    override func viewDidLoad() {
+     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
@@ -33,7 +32,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         searchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = false
         navigationItem.hidesSearchBarWhenScrolling = false
-        
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -41,21 +39,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
-            
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
         
         collectionView.register(HomeCollectionViewCellNews.self, forCellWithReuseIdentifier: HomeCollectionViewCellNews.id)
         collectionView.register(HomeCollectionViewCellDiscounts.self, forCellWithReuseIdentifier: HomeCollectionViewCellDiscounts.id)
-        collectionView.register(HomeCollectionViewCellBooks.self, forCellWithReuseIdentifier: HomeCollectionViewCellBooks.id)
+        collectionView.register(CollectionViewCellProduct.self, forCellWithReuseIdentifier: CollectionViewCellProduct.id)
         collectionView.register(HomeCollectionViewCellPageControl.self, forCellWithReuseIdentifier: HomeCollectionViewCellPageControl.id)
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
-        
-        
     }
-    
-    
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, evironment) -> NSCollectionLayoutSection? in
             switch section {
@@ -109,7 +102,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             default:
                 fatalError()
             }
-            
         }
     }
     func createSectionHeader () -> NSCollectionLayoutBoundarySupplementaryItem {
@@ -117,7 +109,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         return layoutSectionHeader
     }
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
@@ -135,7 +126,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             fatalError()
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
@@ -152,9 +142,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             cellDiscounts.imageView.image = preview.discontImage[indexPath.row]
             return cellDiscounts
         case 3:
-            let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCellBooks.id, for: indexPath) as! HomeCollectionViewCellBooks
+            let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellProduct.id, for: indexPath) as! CollectionViewCellProduct
             cellBooks.imageView.image = Source.makeProduct()[indexPath.row].image
-            cellBooks.labelImage.text = Source.makeProduct()[indexPath.row].name
+            cellBooks.labelImageProduct.text = Source.makeProduct()[indexPath.row].name
             cellBooks.price.text = "\(Source.makeProduct()[indexPath.row].price)"+" руб"
             cellBooks.productAvailability.text = Source.makeProduct()[indexPath.row].productAvailability
             cellBooks.basketButton.tintColor = .orange
@@ -171,10 +161,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productVC = ProductViewController()
         let product = Source.makeProduct()[indexPath.row]
-        productVC.imageView.image = product.image
-        productVC.labelImage.text = product.name
-        productVC.productAvailability.text = product.productAvailability
-        productVC.price.text = "\(product.price)"+" руб"
+        productVC.produtView.imageView.image = product.image
+        productVC.produtView.labelImage.text = product.name
+        productVC.produtView.productAvailability.text = product.productAvailability
+        productVC.produtView.price.text = "\(product.price)"+" руб"
         productVC.title = product.name
         navigationController?.pushViewController(productVC, animated: true)
     }
