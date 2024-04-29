@@ -7,12 +7,12 @@
 
 import Foundation
 import UIKit
-
-struct ProductItem {
+var productBasket : [ProductItem] = []
+struct ProductItem: Codable {
     var name: String
     var price: Double
     var productAvailability: String
-    var image : UIImage
+    var image : String
     var type : Shoptype
 }
 struct SearchType  {
@@ -20,7 +20,7 @@ struct SearchType  {
     var image : UIImage
     var type : Shoptype
 }
-enum Shoptype: String {
+enum Shoptype: String, Codable {
     case books = "Книги"
     case games = "Игры"
     case souvenirs = "Сувениры"
@@ -37,15 +37,15 @@ struct SearchList{
 struct Source {
     static func makeProduct() -> [ProductItem] {
         [
-            .init(name: "Томас Маан", price: 10.5, productAvailability: "Есть в наличии", image: .book, type: .books),
-            .init(name: "Аллан Гай", price: 17.3, productAvailability: "Есть в наличии", image: .book1, type: .books),
-            .init(name: "Уве", price: 13.9, productAvailability: "Нет в наличии", image: .book2, type: .books),
-            .init(name: "Титаник", price: 25.6, productAvailability: "Есть в наличии", image: .book3, type: .books),
-            .init(name: "Карандаш", price: 1.9, productAvailability: "Есть в наличии", image: ._1, type: .souvenirs),
-            .init(name: "Ваза", price: 15.4, productAvailability: "Есть в наличии", image: ._2, type: .souvenirs),
-            .init(name: "Уно", price: 20.5, productAvailability: "Есть в наличии", image: .game3, type: .games),
-            .init(name: "Спящие королевы", price: 103.6, productAvailability: "Есть в наличии", image: .game2, type: .games),
-            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: .game1, type: .games)
+            .init(name: "Томас Маан", price: 10.5, productAvailability: "Есть в наличии", image: "Book", type: .books),
+            .init(name: "Аллан Гай", price: 17.3, productAvailability: "Есть в наличии", image: "Book1", type: .books),
+            .init(name: "Уве", price: 13.9, productAvailability: "Нет в наличии", image: "Book2", type: .books),
+            .init(name: "Титаник", price: 25.6, productAvailability: "Есть в наличии", image: "Book3", type: .books),
+            .init(name: "Карандаш", price: 1.9, productAvailability: "Есть в наличии", image: "1", type: .souvenirs),
+            .init(name: "Ваза", price: 15.4, productAvailability: "Есть в наличии", image: "2", type: .souvenirs),
+            .init(name: "Уно", price: 20.5, productAvailability: "Есть в наличии", image: "game3", type: .games),
+            .init(name: "Спящие королевы", price: 103.6, productAvailability: "Есть в наличии", image: "game2", type: .games),
+            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games)
         ]
     }
     static func MakeProductWothGroup() -> [[ProductItem]] {
@@ -55,5 +55,35 @@ struct Source {
         return [book,games,souvenirs]
     }
 }
-
+class DataManager {
+    private let userDefaults = UserDefaults(suiteName: "basket")
+    private let stepKeys = "stepKeys"
+ 
+    func saveStep ( _ step: [ProductItem] ) {
+        do {
+            let encoder = JSONEncoder()
+            let stepData = try encoder.encode(step)
+            userDefaults?.setValue(stepData, forKey: stepKeys)
+            print("sourse",productBasket)
+        }
+        catch {
+            print ("\(error)")
+        }
+    }
+    func obtainStep() -> [ProductItem] {
+        guard let stepData = userDefaults?.data(forKey: stepKeys) else { return [] }
+        do {
+            let decoder = JSONDecoder()
+            let users = try decoder.decode([ProductItem].self, from: stepData)
+            return users
+        }
+        catch {
+            print ("\(error)")
+        }
+        return []
+    }
+    func deleteStep ( _ step: [ProductItem] ) {
+        userDefaults?.removeObject(forKey: stepKeys)
+    }
+}
 

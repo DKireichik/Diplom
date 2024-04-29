@@ -24,7 +24,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -46,7 +46,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isFiltering {
             let cell = SearchTableViewCell()
-            cell.image.image = filteredShop[indexPath.row].image
+            cell.image.image = UIImage(named: filteredShop[indexPath.row].image)
             cell.labelImage.text = filteredShop[indexPath.row].name
             cell.price.text = "\(filteredShop[indexPath.row].price)"+" руб"
             cell.productAvailability.text = filteredShop[indexPath.row].productAvailability
@@ -71,18 +71,15 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering {
             let productVC = ProductViewController()
-            productVC.produtView.imageView.image = filteredShop[indexPath.row].image
-            productVC.produtView.labelImage.text = filteredShop[indexPath.row].name
-            productVC.produtView.productAvailability.text = filteredShop[indexPath.row].productAvailability
-            productVC.produtView.price.text = "\(filteredShop[indexPath.row].price)"+" руб"
+            productVC.imageView.image = UIImage(named: filteredShop[indexPath.row].image)
+            productVC.labelImage.text = filteredShop[indexPath.row].name
+            productVC.productAvailability.text = filteredShop[indexPath.row].productAvailability
+            productVC.price.text = "\(filteredShop[indexPath.row].price)"+" руб"
             productVC.title = filteredShop[indexPath.row].name
             navigationController?.pushViewController(productVC, animated: true)
         } else {
             let productListVC = ProductListController()
-            productListVC.collectionViewCell.imageView.image = Source.MakeProductWothGroup()[indexPath.row][indexPath.row].image
-            productListVC.collectionViewCell.labelImageProduct.text = Source.MakeProductWothGroup()[indexPath.row][indexPath.row].name
-            productListVC.collectionViewCell.price.text = "\(Source.MakeProductWothGroup()[indexPath.row][indexPath.row].price)"+" руб"
-            productListVC.collectionViewCell.productAvailability.text = Source.MakeProductWothGroup()[indexPath.row][indexPath.row].productAvailability
+            productListVC.productList = Source.MakeProductWothGroup()[indexPath.row]
             navigationController?.pushViewController(productListVC, animated: true)
         }
     }

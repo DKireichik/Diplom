@@ -13,13 +13,16 @@ class Preview {
     var newsImage: [UIImage] = [.news,.news1,.news2]
 }
 
-private let searchController  = UISearchController(searchResultsController: SearchViewController())
 
-class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource{
-   
+
+class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate, UISearchControllerDelegate{
+
+    private let searchController  = UISearchController(searchResultsController: nil)
     let preview = Preview()
     lazy var collectionView = UICollectionView (frame: .zero,
                                                 collectionViewLayout: getCompositionalLayout())
+    lazy var dataManager = DataManager()
+   
      override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,10 +31,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         navigationItem.rightBarButtonItem?.tintColor = .orange
         navigationItem.titleView = searchController.searchBar
         searchController.searchBar.placeholder = "Введите название товара"
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        definesPresentationContext = false
-        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
+        searchController.delegate = self
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -143,11 +144,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             return cellDiscounts
         case 3:
             let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellProduct.id, for: indexPath) as! CollectionViewCellProduct
-            cellBooks.imageView.image = Source.makeProduct()[indexPath.row].image
+            cellBooks.imageView.image = UIImage(named: Source.makeProduct()[indexPath.row].image)
             cellBooks.labelImageProduct.text = Source.makeProduct()[indexPath.row].name
             cellBooks.price.text = "\(Source.makeProduct()[indexPath.row].price)"+" руб"
             cellBooks.productAvailability.text = Source.makeProduct()[indexPath.row].productAvailability
             cellBooks.basketButton.tintColor = .orange
+            cellBooks.addToBasketButton = { [self] in
+                productBasket.append(Source.makeProduct()[indexPath.row])
+                dataManager.saveStep(productBasket)
+            }
             return cellBooks
         default:
             fatalError()
@@ -161,11 +166,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productVC = ProductViewController()
         let product = Source.makeProduct()[indexPath.row]
-        productVC.produtView.imageView.image = product.image
-        productVC.produtView.labelImage.text = product.name
-        productVC.produtView.productAvailability.text = product.productAvailability
-        productVC.produtView.price.text = "\(product.price)"+" руб"
+        productVC.imageView.image = UIImage(named: product.image)
+        productVC.labelImage.text = product.name
+        productVC.productAvailability.text = product.productAvailability
+        productVC.price.text = "\(product.price)"+" руб"
         productVC.title = product.name
         navigationController?.pushViewController(productVC, animated: true)
     }
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        let searchViewController = SearchViewController()
+        navigationController?.pushViewController(searchViewController, animated: false)
+        return false
+    }
+        
 }
+
+

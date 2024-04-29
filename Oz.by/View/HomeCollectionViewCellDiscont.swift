@@ -29,8 +29,6 @@ class HomeCollectionViewCellDiscounts: UICollectionViewCell {
        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-     
-        
     }
     
     required init?(coder: NSCoder) {

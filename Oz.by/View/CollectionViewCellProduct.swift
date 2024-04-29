@@ -8,9 +8,6 @@
 import UIKit
 
 class CollectionViewCellProduct: UICollectionViewCell {
-    
- 
-    
     static let id = "CollectionViewCellProduct"
     
     let imageView = {
@@ -43,10 +40,10 @@ class CollectionViewCellProduct: UICollectionViewCell {
         basketButton.setImage(UIImage(systemName: "cart"), for: .normal)
         basketButton.translatesAutoresizingMaskIntoConstraints = false
         basketButton.tintColor = .orange
-        basketButton.addTarget(CollectionViewCellProduct.self, action: #selector(addToBasket), for: .touchUpInside)
+        basketButton.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
         return basketButton
     }()
-  
+    var addToBasketButton: (() -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -73,7 +70,7 @@ class CollectionViewCellProduct: UICollectionViewCell {
         ])
     }
     @objc func addToBasket (_ sender : UIButton) {
-  
+       addToBasketButton?()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
