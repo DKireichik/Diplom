@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 var productBasket : [ProductItem] = []
 struct ProductItem: Codable {
     var name: String
@@ -48,23 +49,24 @@ struct Source {
             .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games)
         ]
     }
-    static func MakeProductWothGroup() -> [[ProductItem]] {
+    static func MakeProductWithGroup() -> [[ProductItem]] {
         let book = makeProduct().filter { $0.type == .books }
         let games = makeProduct().filter { $0.type == .games }
         let souvenirs = makeProduct().filter { $0.type == .souvenirs }
         return [book,games,souvenirs]
     }
 }
+
+let decoder = JSONDecoder()
+let encoder = JSONEncoder()
 class DataManager {
     private let userDefaults = UserDefaults(suiteName: "basket")
     private let stepKeys = "stepKeys"
  
     func saveStep ( _ step: [ProductItem] ) {
         do {
-            let encoder = JSONEncoder()
             let stepData = try encoder.encode(step)
             userDefaults?.setValue(stepData, forKey: stepKeys)
-            print("sourse",productBasket)
         }
         catch {
             print ("\(error)")
@@ -73,7 +75,6 @@ class DataManager {
     func obtainStep() -> [ProductItem] {
         guard let stepData = userDefaults?.data(forKey: stepKeys) else { return [] }
         do {
-            let decoder = JSONDecoder()
             let users = try decoder.decode([ProductItem].self, from: stepData)
             return users
         }

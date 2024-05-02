@@ -8,7 +8,8 @@
 import UIKit
 
 
-class TableViewCell: UITableViewCell {
+class BasketTableViewCell: UITableViewCell {
+ 
     let image = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -28,7 +29,7 @@ class TableViewCell: UITableViewCell {
         price.translatesAutoresizingMaskIntoConstraints = false
         return price
     }()
-    let basketButton: UIButton = {
+    lazy var basketButton: UIButton = {
         let basketButton = UIButton(type: .system)
         basketButton.setImage(UIImage(systemName: "trash"), for: .normal)
         basketButton.translatesAutoresizingMaskIntoConstraints = false

@@ -25,7 +25,7 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CollectionViewCellProduct.self, forCellWithReuseIdentifier: CollectionViewCellProduct.id)
+        collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, evironment) -> NSCollectionLayoutSection? in
@@ -49,7 +49,7 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         return productList.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellProduct = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellProduct.id, for: indexPath) as! CollectionViewCellProduct
+        let cellProduct = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath) as! ProductCollectionViewCell
         cellProduct.imageView.image = UIImage(named: productList[indexPath.row].image)
         cellProduct.labelImageProduct.text = productList[indexPath.row].name
         cellProduct.price.text = "\(productList[indexPath.row].price)"+" руб"
@@ -58,6 +58,7 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         cellProduct.addToBasketButton = { [self] in
             productBasket.append(productList[indexPath.row])
             dataManager.saveStep(productBasket)
+            cellProduct.basketButton.isEnabled = false
         }
         return cellProduct
     }

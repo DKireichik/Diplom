@@ -36,7 +36,7 @@ class ProductViewController: UIViewController {
         price.translatesAutoresizingMaskIntoConstraints = false
         return price
     }()
-    let basketButton: UIButton = {
+    lazy var basketButton: UIButton = {
         let basketButton = UIButton(type: .system)
         basketButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         basketButton.setImage(UIImage(systemName: "cart"), for: .normal)

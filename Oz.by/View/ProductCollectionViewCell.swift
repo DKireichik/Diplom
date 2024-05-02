@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CollectionViewCellProduct: UICollectionViewCell {
-    static let id = "CollectionViewCellProduct"
+class ProductCollectionViewCell: UICollectionViewCell {
+    static let id = "ProductCollectionViewCell"
     
     let imageView = {
         let imageView = UIImageView()
@@ -35,7 +35,7 @@ class CollectionViewCellProduct: UICollectionViewCell {
         price.translatesAutoresizingMaskIntoConstraints = false
         return price
     }()
-    let basketButton: UIButton = {
+    lazy var  basketButton: UIButton = {
         let basketButton = UIButton(type: .system)
         basketButton.setImage(UIImage(systemName: "cart"), for: .normal)
         basketButton.translatesAutoresizingMaskIntoConstraints = false

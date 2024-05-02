@@ -9,7 +9,7 @@ import UIKit
 
 class Preview {
     var headerLabelText: [String] = ["","","Истории","Книги"]
-    var discontImage: [UIImage] = [.discont1,.news1,.news2]
+    var discountImage: [UIImage] = [.discont1,.news1,.news2]
     var newsImage: [UIImage] = [.news,.news1,.news2]
 }
 
@@ -44,10 +44,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.register(HomeCollectionViewCellNews.self, forCellWithReuseIdentifier: HomeCollectionViewCellNews.id)
-        collectionView.register(HomeCollectionViewCellDiscounts.self, forCellWithReuseIdentifier: HomeCollectionViewCellDiscounts.id)
-        collectionView.register(CollectionViewCellProduct.self, forCellWithReuseIdentifier: CollectionViewCellProduct.id)
-        collectionView.register(HomeCollectionViewCellPageControl.self, forCellWithReuseIdentifier: HomeCollectionViewCellPageControl.id)
+        collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.id)
+        collectionView.register(DiscountCollectionViewCell.self, forCellWithReuseIdentifier: DiscountCollectionViewCell.id)
+        collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
+        collectionView.register(PageControlCollectionViewCell.self, forCellWithReuseIdentifier: PageControlCollectionViewCell.id)
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -120,7 +120,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         case 1:
             return 1
         case 2:
-            return preview.discontImage.count
+            return preview.discountImage.count
         case 3:
             return 4
         default:
@@ -130,20 +130,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCellNews.id, for: indexPath) as! HomeCollectionViewCellNews
+            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.id, for: indexPath) as! NewsCollectionViewCell
             cellNews.imageView.image = preview.newsImage[indexPath.row]
             return cellNews
         case 1:
-            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCellPageControl.id, for: indexPath) as! HomeCollectionViewCellPageControl
+            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath) as! PageControlCollectionViewCell
             cellNews.pageControl.numberOfPages = preview.newsImage.count
             cellNews.pageControl.currentPage = indexPath.row
             return cellNews
         case 2:
-            let cellDiscounts = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCellDiscounts.id, for: indexPath) as! HomeCollectionViewCellDiscounts
-            cellDiscounts.imageView.image = preview.discontImage[indexPath.row]
+            let cellDiscounts = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath) as! DiscountCollectionViewCell
+            cellDiscounts.imageView.image = preview.discountImage[indexPath.row]
             return cellDiscounts
         case 3:
-            let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCellProduct.id, for: indexPath) as! CollectionViewCellProduct
+            let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath) as! ProductCollectionViewCell
             cellBooks.imageView.image = UIImage(named: Source.makeProduct()[indexPath.row].image)
             cellBooks.labelImageProduct.text = Source.makeProduct()[indexPath.row].name
             cellBooks.price.text = "\(Source.makeProduct()[indexPath.row].price)"+" руб"
@@ -152,6 +152,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             cellBooks.addToBasketButton = { [self] in
                 productBasket.append(Source.makeProduct()[indexPath.row])
                 dataManager.saveStep(productBasket)
+                cellBooks.basketButton.isEnabled = false
             }
             return cellBooks
         default:

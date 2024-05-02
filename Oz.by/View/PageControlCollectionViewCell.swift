@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class HomeCollectionViewCellPageControl: UICollectionViewCell {
+class PageControlCollectionViewCell: UICollectionViewCell {
     
-    static let id = "HomeCollectionPageControl"
+    static let id = "PageControlCollection"
 
     let pageControl = {
         let pageControl =  UIPageControl()

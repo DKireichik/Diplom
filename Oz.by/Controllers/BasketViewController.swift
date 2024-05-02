@@ -25,29 +25,42 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.delegate = self
         tableView.dataSource = self
-
+        tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "BasketTableViewCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return productBasket.count
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  cell = TableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasketTableViewCell", for: indexPath) as! BasketTableViewCell
         let basketProduct =  dataManager.obtainStep()[indexPath.row]
         cell.image.image = UIImage(named: "\(basketProduct.image)")
         cell.labelImage.text = basketProduct.name
         cell.price.text = "\(basketProduct.price)"+" руб"
-        cell.deleteBasketButton = { 
+        cell.deleteBasketButton = {
+            let productBasketFiltered = productBasket.filter({$0.name != basketProduct.name })
+            productBasket = productBasketFiltered
+            self.dataManager.saveStep(productBasket)
             tableView.reloadData()
         }
         return cell
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataManager.obtainStep().count
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = BasketTableFooterView()
+        var resultSum = 0.0
+        productBasket.forEach { item in
+            resultSum = resultSum + item.price
+        }
+        footer.sum.text = "Итого: "+"\(resultSum)"+" руб"
+        footer.orderBasketButton = {
+            present(<#T##UIViewController#>, animated: <#T##Bool#>)
+            
+        }
+        return footer
     }
-    
-
 }
 
