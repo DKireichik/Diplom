@@ -7,15 +7,12 @@
 
 import UIKit
 
-class BasketViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BasketViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     var tableView = UITableView()
-
     lazy var dataManager = DataManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,11 +53,13 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
             resultSum = resultSum + item.price
         }
         footer.sum.text = "Итого: "+"\(resultSum)"+" руб"
-        footer.orderBasketButton = {
-            present(<#T##UIViewController#>, animated: <#T##Bool#>)
-            
+        footer.orderBasketButton = { [self] in
+            present(PaymentCardViewController(), animated: true)
+            productBasket = []
+            tableView.reloadData()
         }
         return footer
     }
+    
 }
 

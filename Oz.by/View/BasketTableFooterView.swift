@@ -17,7 +17,7 @@ class BasketTableFooterView : UIView {
         info.text = "Введите данные для оформления заказа"
         return info
     }()
-    let number  = {
+    let numberPhone  = {
         let number = UITextField()
         number.placeholder = "Введите номер телефона"
         number.borderStyle = .roundedRect
@@ -59,14 +59,19 @@ class BasketTableFooterView : UIView {
         return orderButton
     }()
     var orderBasketButton: (() -> Void)?
+    let nameValidType : String.ValideTypes = .name
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(info)
-        addSubview(number)
+        addSubview(numberPhone)
         addSubview(name)
         addSubview(adress)
         addSubview(sum)
         addSubview(orderButton)
+        name.delegate = self
+        numberPhone.delegate = self
+        numberPhone.keyboardType = .numberPad
         NSLayoutConstraint.activate([
             info.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             info.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -74,10 +79,10 @@ class BasketTableFooterView : UIView {
             name.topAnchor.constraint(equalTo: info.bottomAnchor, constant: 10),
             name.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             name.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            number.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 10),
-            number.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            number.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            adress.topAnchor.constraint(equalTo: number.bottomAnchor, constant: 10),
+            numberPhone.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 10),
+            numberPhone.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            numberPhone.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            adress.topAnchor.constraint(equalTo: numberPhone.bottomAnchor, constant: 10),
             adress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             adress.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             sum.topAnchor.constraint(equalTo: adress.bottomAnchor, constant: 10),
@@ -87,7 +92,8 @@ class BasketTableFooterView : UIView {
             orderButton.topAnchor.constraint(equalTo: sum.bottomAnchor, constant: 10),
             orderButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             orderButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            orderButton.heightAnchor.constraint(equalToConstant: 50)
+            orderButton.heightAnchor.constraint(equalToConstant: 50),
+            orderButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10)
         ])
         
     }
@@ -96,5 +102,53 @@ class BasketTableFooterView : UIView {
     }
     @objc func orderBasket (_ sender : UIButton) {
         orderBasketButton?()
+    }
+    private func setTextField(textField : UITextField, validType: String.ValideTypes, string : String, range: NSRange) {
+        let text = (textField.text ?? "") + string
+        let result : String
+        if range.length == 1 {
+            let end = text.index(text.startIndex, offsetBy: text.count - 1)
+            result = String(text[text.startIndex..<end])
+        } else {
+            result = text
+        }
+        textField.text = result
+        if result.isValid(validType: validType) {
+            name.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        } else {
+            name.textColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+        }
+    }
+    private func setPhoneNumberMask(textField: UITextField, mask: String, string : String, range: NSRange) -> String {
+        let text = textField.text ?? ""
+        let phone = (text as NSString).replacingCharacters(in: range, with: string)
+        let number = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var result = ""
+        var index = number.startIndex
+        
+        for character in mask where index < number.endIndex {
+            if character == "X" {
+                result.append(number[index])
+                index = number.index(after: index)
+            } else {
+                result.append(character)
+            }
+        }
+        return result
+    }
+}
+extension BasketTableFooterView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField {
+        case name :
+            setTextField(textField: name, validType: nameValidType, string: string, range: range)
+        case numberPhone :
+            numberPhone.text = setPhoneNumberMask(textField: numberPhone, mask: "+XXX (XX) XXX-XX-XX",
+                                                                          string: string,
+                                                                          range: range)
+        default:
+            break
+        }
+        return false
     }
 }
