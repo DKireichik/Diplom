@@ -8,7 +8,6 @@
 import UIKit
 
 class ProductViewController: UIViewController {
-    
     var imageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,10 +56,8 @@ class ProductViewController: UIViewController {
         return favoritesButton
     }()
     lazy var data = DataManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(imageView)
         view.addSubview(labelImage)
         view.addSubview(price)
@@ -69,38 +66,36 @@ class ProductViewController: UIViewController {
         view.addSubview(favoritesButton)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor,constant: 20),
-            imageView.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor,constant: -50),
-            imageView.leadingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.leadingAnchor,constant: 50),
-            imageView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor,constant: -250),
-            favoritesButton.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor,constant: 10),
-            favoritesButton.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor,constant: -15),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -250),
+            favoritesButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            favoritesButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             labelImage.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            labelImage.leadingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
-            labelImage.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor),
+            labelImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            labelImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             productAvailability.topAnchor.constraint(equalTo: labelImage.bottomAnchor, constant: 10),
-            productAvailability.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
+            productAvailability.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             price.topAnchor.constraint(equalTo: productAvailability.bottomAnchor, constant: 15),
             price.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             price.heightAnchor.constraint(equalToConstant: 45),
             price.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -30),
             basketButton.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 8),
             basketButton.heightAnchor.constraint(equalToConstant: 60),
-            basketButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 15),
-            basketButton.trailingAnchor.constraint(equalTo:  view.trailingAnchor,constant: -15),
+            basketButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            basketButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15)
         ])
     }
-
-    @objc func addToBasket (_ sender : UIButton) {
+    @objc func addToBasket (_ sender: UIButton) {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
         productBasket.append(product[0])
         data.saveStep(productBasket)
     }
-    @objc func addTofavorites (_ sender : UIButton) {
+    @objc func addTofavorites (_ sender: UIButton) {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
         productFavorites.append(product[0])
         data.saveStepFavorites(productFavorites)
         favoritesButton.tintColor = .red
     }
 }
-

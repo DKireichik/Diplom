@@ -9,7 +9,6 @@ import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
     static let id = "ProductCollectionViewCell"
-    
     let imageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -17,7 +16,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
     let labelImageProduct = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +53,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     var addTofavoritesButton: (() -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         contentView.addSubview(imageView)
         contentView.addSubview(labelImageProduct)
         contentView.addSubview(price)
@@ -63,29 +60,29 @@ class ProductCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(productAvailability)
         contentView.addSubview(favoritesButton)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo:  contentView.topAnchor,constant: 20),
-            imageView.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor,constant: -20),
-            imageView.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor,constant: 20),
-            imageView.bottomAnchor.constraint(equalTo:  contentView.bottomAnchor,constant: -80),
-            favoritesButton.topAnchor.constraint(equalTo:  contentView.topAnchor,constant: 5),
-            favoritesButton.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor,constant: -5),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -80),
+            favoritesButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             favoritesButton.heightAnchor.constraint(equalToConstant: 30),
             labelImageProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
-            labelImageProduct.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
-            labelImageProduct.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor),
+            labelImageProduct.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            labelImageProduct.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             price.topAnchor.constraint(equalTo: labelImageProduct.bottomAnchor, constant: 5),
-            price.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
-            price.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor),
+            price.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            price.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             productAvailability.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 5),
-            productAvailability.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor),
+            productAvailability.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             basketButton.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 5),
-            basketButton.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor, constant: -8),
+            basketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
     }
-    @objc func addToBasket (_ sender : UIButton) {
+    @objc func addToBasket (_ sender: UIButton) {
        addToBasketButton?()
     }
-    @objc func addTofavorites (_ sender : UIButton) {
+    @objc func addTofavorites (_ sender: UIButton) {
        addTofavoritesButton?()
     }
     required init?(coder: NSCoder) {

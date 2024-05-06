@@ -8,9 +8,7 @@
 import UIKit
 
 class DiscountCollectionViewCell: UICollectionViewCell {
-    
     static let id = "DiscountsCollectionViewCell"
-    
     let imageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +16,6 @@ class DiscountCollectionViewCell: UICollectionViewCell {
     }()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -26,13 +23,10 @@ class DiscountCollectionViewCell: UICollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-       
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -8,22 +8,18 @@
 import UIKit
 
 class Preview {
-    var headerLabelText: [String] = ["","","Истории","Книги"]
-    var discountImage: [UIImage] = [.discont1,.news1,.news2]
-    var newsImage: [UIImage] = [.news,.news1,.news2]
+    var headerLabelText: [String] = ["", "", "Истории", "Книги"]
+    var discountImage: [UIImage] = [.discont1, .news1, .news2]
+    var newsImage: [UIImage] = [.news, .news1, .news2]
 }
-
-class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate, UISearchControllerDelegate{
-
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, UISearchControllerDelegate {
     private let searchController  = UISearchController(searchResultsController: nil)
     let preview = Preview()
-    lazy var collectionView = UICollectionView (frame: .zero,
-                                                collectionViewLayout: getCompositionalLayout())
+    lazy var collectionView = UICollectionView(frame: .zero,collectionViewLayout: getCompositionalLayout())
     lazy var dataManager = DataManager()
 
      override func viewDidLoad() {
         super.viewDidLoad()
-   
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = .init(title: nil, image: .init(systemName: "bell"), target: nil, action: nil)
         navigationItem.rightBarButtonItem?.tintColor = .orange
@@ -41,7 +37,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
- 
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.id)
         collectionView.register(DiscountCollectionViewCell.self, forCellWithReuseIdentifier: DiscountCollectionViewCell.id)
         collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
@@ -128,19 +123,23 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.id, for: indexPath) as! NewsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCollectionViewCell.id, for: indexPath)
+            guard let cellNews = cell as? NewsCollectionViewCell else {return cell}
             cellNews.imageView.image = preview.newsImage[indexPath.row]
             return cellNews
         case 1:
-            let cellPageControll = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath) as! PageControlCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath)
+            guard let cellPageControll = cell as? PageControlCollectionViewCell else {return cell}
             cellPageControll.pageControl.numberOfPages = preview.newsImage.count
             return cellPageControll
         case 2:
-            let cellDiscounts = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath) as! DiscountCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath)
+            guard let cellDiscounts = cell as? DiscountCollectionViewCell else {return cell}
             cellDiscounts.imageView.image = preview.discountImage[indexPath.row]
             return cellDiscounts
         case 3:
-            let cellBooks = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath) as! ProductCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath)
+            guard let cellBooks = cell as? ProductCollectionViewCell else {return cell}
             cellBooks.imageView.image = UIImage(named: Source.makeProduct()[indexPath.row].image)
             cellBooks.labelImageProduct.text = Source.makeProduct()[indexPath.row].name
             cellBooks.price.text = "\(Source.makeProduct()[indexPath.row].price)"+" руб"
@@ -162,7 +161,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         }
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as!HeaderCollectionReusableView
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath)
+        guard let header = cell as? HeaderCollectionReusableView else {return cell}
         header.label.text = preview.headerLabelText[indexPath.section]
         return header
     }
@@ -182,7 +182,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         navigationController?.pushViewController(searchViewController, animated: false)
         return false
     }
-    
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        if let collectionView = scrollView as? UICollectionView {
 //            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
@@ -196,4 +195,3 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
 //        }
 //    }
 }
-

@@ -8,7 +8,6 @@
 import UIKit
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     let goods = Source.makeProduct()
     var tableView = UITableView()
     private let searchController  = UISearchController(searchResultsController: nil)
@@ -21,10 +20,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     private var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -79,7 +76,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             navigationController?.pushViewController(productVC, animated: true)
         } else {
             let productListVC = ProductListController()
-            productListVC.productList = Source.MakeProductWithGroup()[indexPath.row]
+            productListVC.productList = Source.makeProductWithGroup()[indexPath.row]
             navigationController?.pushViewController(productListVC, animated: true)
         }
     }

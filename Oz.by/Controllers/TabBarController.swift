@@ -18,7 +18,6 @@ class TabBarController: UITabBarController {
         tabBar.barTintColor = .clear
         setupTabBar()
     }
-    
    func setupTabBar() {
        let homeViewController = createNavigationController(vc: HomeViewController(), itemName: "Главная", itemImage: UIImage(systemName: "house")!)
         let searchViewController = createNavigationController(vc: SearchViewController(), itemName: "Поиск", itemImage: UIImage(systemName: "magnifyingglass")!)

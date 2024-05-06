@@ -8,26 +8,26 @@
 import Foundation
 import UIKit
 
-var productBasket : [ProductItem] = []
-var productFavorites : [ProductItem] = []
+var productBasket: [ProductItem] = []
+var productFavorites: [ProductItem] = []
 struct ProductItem: Codable {
     var name: String
     var price: Double
     var productAvailability: String
-    var image : String
-    var type : Shoptype
+    var image: String
+    var type: Shoptype
 }
-struct SearchType  {
+struct SearchType {
     var name: String
-    var image : UIImage
-    var type : Shoptype
+    var image: UIImage
+    var type: Shoptype
 }
 enum Shoptype: String, Codable {
     case books = "Книги"
     case games = "Игры"
     case souvenirs = "Сувениры"
 }
-struct SearchList{
+struct SearchList {
     static func searchList() -> [SearchType] {
         [
             .init(name: Shoptype.books.rawValue, image: UIImage(systemName: "books.vertical")!, type: .books),
@@ -50,11 +50,11 @@ struct Source {
             .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games)
         ]
     }
-    static func MakeProductWithGroup() -> [[ProductItem]] {
+    static func makeProductWithGroup() -> [[ProductItem]] {
         let book = makeProduct().filter { $0.type == .books }
         let games = makeProduct().filter { $0.type == .games }
         let souvenirs = makeProduct().filter { $0.type == .souvenirs }
-        return [book,games,souvenirs]
+        return [book, games, souvenirs]
     }
 }
 
@@ -63,17 +63,14 @@ let encoder = JSONEncoder()
 class DataManager {
     private let userDefaults = UserDefaults(suiteName: "basket")
     private let stepKeys = "stepKeys"
- 
     private let userDefaultsfavorites = UserDefaults(suiteName: "favorites")
     private let stepKeysFavorites = "stepFavorites"
-    
     func saveStep ( _ step: [ProductItem] ) {
         do {
             let stepData = try encoder.encode(step)
             userDefaults?.setValue(stepData, forKey: stepKeys)
-        }
-        catch {
-            print ("\(error)")
+        } catch {
+            print("\(error)")
         }
     }
     func obtainStep() -> [ProductItem] {
@@ -81,9 +78,8 @@ class DataManager {
         do {
             let users = try decoder.decode([ProductItem].self, from: stepData)
             return users
-        }
-        catch {
-            print ("\(error)")
+        } catch {
+            print("\(error)")
         }
         return []
     }
@@ -91,9 +87,8 @@ class DataManager {
         do {
             let stepData = try encoder.encode(step)
             userDefaults?.setValue(stepData, forKey: stepKeysFavorites)
-        }
-        catch {
-            print ("\(error)")
+        } catch {
+            print("\(error)")
         }
     }
     func obtainStepFavorites() -> [ProductItem] {
@@ -101,9 +96,8 @@ class DataManager {
         do {
             let users = try decoder.decode([ProductItem].self, from: stepData)
             return users
-        }
-        catch {
-            print ("\(error)")
+        } catch {
+            print("\(error)")
         }
         return []
     }
@@ -111,4 +105,3 @@ class DataManager {
         userDefaults?.removeObject(forKey: stepKeys)
     }
 }
-

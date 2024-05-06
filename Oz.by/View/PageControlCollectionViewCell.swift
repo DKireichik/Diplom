@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 
 class PageControlCollectionViewCell: UICollectionViewCell {
-    
     static let id = "PageControlCollection"
-
     let pageControl = {
         let pageControl =  UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ProductListController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
-    lazy var collectionView = UICollectionView (frame: .zero,
+class ProductListController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    lazy var collectionView = UICollectionView(frame: .zero,
                                                 collectionViewLayout: getCompositionalLayout())
-    var productList : [ProductItem] = []
+    var productList: [ProductItem] = []
     lazy var dataManager = DataManager()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,17 +18,17 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.leadingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.leadingAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (section, evironment) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { ( section, evironment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2),
                                                   heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -49,7 +49,8 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         return productList.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellProduct = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath) as! ProductCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath)
+        guard let cellProduct = cell as? ProductCollectionViewCell else {return cell}
         cellProduct.imageView.image = UIImage(named: productList[indexPath.row].image)
         cellProduct.labelImageProduct.text = productList[indexPath.row].name
         cellProduct.price.text = "\(productList[indexPath.row].price)"+" руб"
@@ -78,5 +79,3 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
         navigationController?.pushViewController(productVC, animated: true)
     }
 }
-
-

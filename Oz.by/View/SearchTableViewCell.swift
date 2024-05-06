@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
-
+class SearchTableViewCell: UITableViewCell {    
     let image = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -34,10 +33,8 @@ class SearchTableViewCell: UITableViewCell {
         price.translatesAutoresizingMaskIntoConstraints = false
         return price
     }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         contentView.addSubview(image)
         contentView.addSubview(labelImage)
         contentView.addSubview(price)
@@ -60,4 +57,3 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-    

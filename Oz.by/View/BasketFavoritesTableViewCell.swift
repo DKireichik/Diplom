@@ -7,9 +7,7 @@
 
 import UIKit
 
-
 class BasketFavoritesTableViewCell: UITableViewCell {
- 
     let image = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -38,20 +36,17 @@ class BasketFavoritesTableViewCell: UITableViewCell {
         return basketButton
     }()
     var deleteBasketButton: (() -> Void)?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         contentView.addSubview(image)
         contentView.addSubview(labelImage)
         contentView.addSubview(price)
         contentView.addSubview(basketButton)
-        
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             image.heightAnchor.constraint(equalToConstant: 90),
-            image.bottomAnchor.constraint(equalTo:contentView.bottomAnchor,constant: -10),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -300),
             labelImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             labelImage.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 12),
@@ -61,12 +56,10 @@ class BasketFavoritesTableViewCell: UITableViewCell {
             basketButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    @objc func deleteBasket (_ sender : UIButton) {
+    @objc func deleteBasket (_ sender: UIButton) {
         deleteBasketButton?()
     }
 }
-    
