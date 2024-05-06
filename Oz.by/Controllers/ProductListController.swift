@@ -60,6 +60,11 @@ class ProductListController: UIViewController,UICollectionViewDelegate,UICollect
             dataManager.saveStep(productBasket)
             cellProduct.basketButton.isEnabled = false
         }
+        cellProduct.addTofavoritesButton = { [self] in
+            productFavorites.append(productList[indexPath.row])
+            dataManager.saveStepFavorites(productFavorites)
+            cellProduct.favoritesButton.tintColor = .red
+        }
         return cellProduct
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

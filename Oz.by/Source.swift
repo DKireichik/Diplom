@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 var productBasket : [ProductItem] = []
+var productFavorites : [ProductItem] = []
 struct ProductItem: Codable {
     var name: String
     var price: Double
@@ -63,6 +64,9 @@ class DataManager {
     private let userDefaults = UserDefaults(suiteName: "basket")
     private let stepKeys = "stepKeys"
  
+    private let userDefaultsfavorites = UserDefaults(suiteName: "favorites")
+    private let stepKeysFavorites = "stepFavorites"
+    
     func saveStep ( _ step: [ProductItem] ) {
         do {
             let stepData = try encoder.encode(step)
@@ -74,6 +78,26 @@ class DataManager {
     }
     func obtainStep() -> [ProductItem] {
         guard let stepData = userDefaults?.data(forKey: stepKeys) else { return [] }
+        do {
+            let users = try decoder.decode([ProductItem].self, from: stepData)
+            return users
+        }
+        catch {
+            print ("\(error)")
+        }
+        return []
+    }
+    func saveStepFavorites ( _ step: [ProductItem] ) {
+        do {
+            let stepData = try encoder.encode(step)
+            userDefaults?.setValue(stepData, forKey: stepKeysFavorites)
+        }
+        catch {
+            print ("\(error)")
+        }
+    }
+    func obtainStepFavorites() -> [ProductItem] {
+        guard let stepData = userDefaults?.data(forKey: stepKeysFavorites) else { return [] }
         do {
             let users = try decoder.decode([ProductItem].self, from: stepData)
             return users

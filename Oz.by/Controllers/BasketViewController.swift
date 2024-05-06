@@ -22,7 +22,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "BasketTableViewCell")
+        tableView.register(BasketFavoritesTableViewCell.self, forCellReuseIdentifier: "BasketTableViewCell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +33,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         return productBasket.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BasketTableViewCell", for: indexPath) as! BasketTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasketTableViewCell", for: indexPath) as! BasketFavoritesTableViewCell
         let basketProduct =  dataManager.obtainStep()[indexPath.row]
         cell.image.image = UIImage(named: "\(basketProduct.image)")
         cell.labelImage.text = basketProduct.name

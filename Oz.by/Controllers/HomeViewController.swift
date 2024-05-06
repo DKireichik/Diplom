@@ -13,8 +13,6 @@ class Preview {
     var newsImage: [UIImage] = [.news,.news1,.news2]
 }
 
-
-
 class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate, UISearchControllerDelegate{
 
     private let searchController  = UISearchController(searchResultsController: nil)
@@ -22,10 +20,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
     lazy var collectionView = UICollectionView (frame: .zero,
                                                 collectionViewLayout: getCompositionalLayout())
     lazy var dataManager = DataManager()
-   
+
      override func viewDidLoad() {
         super.viewDidLoad()
-        
+   
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = .init(title: nil, image: .init(systemName: "bell"), target: nil, action: nil)
         navigationItem.rightBarButtonItem?.tintColor = .orange
@@ -43,7 +41,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+ 
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.id)
         collectionView.register(DiscountCollectionViewCell.self, forCellWithReuseIdentifier: DiscountCollectionViewCell.id)
         collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
@@ -134,10 +132,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
             cellNews.imageView.image = preview.newsImage[indexPath.row]
             return cellNews
         case 1:
-            let cellNews = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath) as! PageControlCollectionViewCell
-            cellNews.pageControl.numberOfPages = preview.newsImage.count
-            cellNews.pageControl.currentPage = indexPath.row
-            return cellNews
+            let cellPageControll = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath) as! PageControlCollectionViewCell
+            cellPageControll.pageControl.numberOfPages = preview.newsImage.count
+            return cellPageControll
         case 2:
             let cellDiscounts = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath) as! DiscountCollectionViewCell
             cellDiscounts.imageView.image = preview.discountImage[indexPath.row]
@@ -153,6 +150,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
                 productBasket.append(Source.makeProduct()[indexPath.row])
                 dataManager.saveStep(productBasket)
                 cellBooks.basketButton.isEnabled = false
+            }
+            cellBooks.addTofavoritesButton = { [self] in
+                productFavorites.append(Source.makeProduct()[indexPath.row])
+                dataManager.saveStepFavorites(productFavorites)
+                cellBooks.favoritesButton.tintColor = .red
             }
             return cellBooks
         default:
@@ -174,12 +176,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate,UICollectio
         productVC.title = product.name
         navigationController?.pushViewController(productVC, animated: true)
     }
+
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let searchViewController = SearchViewController()
         navigationController?.pushViewController(searchViewController, animated: false)
         return false
     }
-        
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if let collectionView = scrollView as? UICollectionView {
+//            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+//            let visiblePoint = CGPoint(x: visibleRect.midY, y: visibleRect.midX)
+//            if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
+//                let currentIndex = indexPath.row
+//                if let cell = collectionView.cellForItem(at: indexPath) as? PageControlCollectionViewCell {
+//                    cell.pageControl.currentPage = currentIndex
+//                }
+//            }
+//        }
+//    }
 }
-
 

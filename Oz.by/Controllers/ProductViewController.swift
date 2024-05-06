@@ -48,6 +48,14 @@ class ProductViewController: UIViewController {
         basketButton.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
         return basketButton
     }()
+    lazy var  favoritesButton: UIButton = {
+        let favoritesButton = UIButton(type: .system)
+        favoritesButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        favoritesButton.tintColor = .black
+        favoritesButton.addTarget(self, action: #selector(addTofavorites), for: .touchUpInside)
+        return favoritesButton
+    }()
     lazy var data = DataManager()
     
     override func viewDidLoad() {
@@ -58,12 +66,15 @@ class ProductViewController: UIViewController {
         view.addSubview(price)
         view.addSubview(basketButton)
         view.addSubview(productAvailability)
+        view.addSubview(favoritesButton)
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor,constant: 20),
             imageView.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor,constant: -50),
             imageView.leadingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.leadingAnchor,constant: 50),
             imageView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor,constant: -250),
+            favoritesButton.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor,constant: 10),
+            favoritesButton.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor,constant: -15),
             labelImage.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             labelImage.leadingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.leadingAnchor,constant: 15),
             labelImage.trailingAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.trailingAnchor),
@@ -84,6 +95,12 @@ class ProductViewController: UIViewController {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
         productBasket.append(product[0])
         data.saveStep(productBasket)
+    }
+    @objc func addTofavorites (_ sender : UIButton) {
+        let product  = Source.makeProduct().filter { $0.name == labelImage.text}
+        productFavorites.append(product[0])
+        data.saveStepFavorites(productFavorites)
+        favoritesButton.tintColor = .red
     }
 }
 

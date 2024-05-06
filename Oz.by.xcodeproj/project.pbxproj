@@ -21,7 +21,7 @@
 		4BDC56F92BD11A87008C58C8 /* DiscountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56F82BD11A87008C58C8 /* DiscountCollectionViewCell.swift */; };
 		4BDC56FB2BD11A99008C58C8 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FA2BD11A99008C58C8 /* ProductCollectionViewCell.swift */; };
 		4BDC56FD2BD11AC7008C58C8 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionReusableView.swift */; };
-		4BDC56FF2BD24A4A008C58C8 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */; };
+		4BDC56FF2BD24A4A008C58C8 /* BasketFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC56FE2BD24A4A008C58C8 /* BasketFavoritesTableViewCell.swift */; };
 		4BDC57012BD69346008C58C8 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57002BD69346008C58C8 /* Source.swift */; };
 		4BDC57052BD6BF36008C58C8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */; };
 		4BDC57072BD79CC5008C58C8 /* PageControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC57062BD79CC5008C58C8 /* PageControlCollectionViewCell.swift */; };
@@ -50,7 +50,7 @@
 		4BDC56F82BD11A87008C58C8 /* DiscountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BDC56FA2BD11A99008C58C8 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
-		4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
+		4BDC56FE2BD24A4A008C58C8 /* BasketFavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		4BDC57002BD69346008C58C8 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		4BDC57062BD79CC5008C58C8 /* PageControlCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 				4BDC56F82BD11A87008C58C8 /* DiscountCollectionViewCell.swift */,
 				4BDC56FA2BD11A99008C58C8 /* ProductCollectionViewCell.swift */,
 				4BDC56FC2BD11AC7008C58C8 /* HeaderCollectionReusableView.swift */,
-				4BDC56FE2BD24A4A008C58C8 /* BasketTableViewCell.swift */,
+				4BDC56FE2BD24A4A008C58C8 /* BasketFavoritesTableViewCell.swift */,
 				4BDC57382BDBB363008C58C8 /* BasketTableFooterView.swift */,
 				4BDC57042BD6BF36008C58C8 /* SearchTableViewCell.swift */,
 				4BDC57112BDA527B008C58C8 /* SearchViewCell.swift */,
@@ -211,7 +211,7 @@
 				4BDC57392BDBB363008C58C8 /* BasketTableFooterView.swift in Sources */,
 				4BDC573F2BE4CDF6008C58C8 /* String+Extension.swift in Sources */,
 				4BDC56F72BD11A77008C58C8 /* NewsCollectionViewCell.swift in Sources */,
-				4BDC56FF2BD24A4A008C58C8 /* BasketTableViewCell.swift in Sources */,
+				4BDC56FF2BD24A4A008C58C8 /* BasketFavoritesTableViewCell.swift in Sources */,
 				4BDC56F92BD11A87008C58C8 /* DiscountCollectionViewCell.swift in Sources */,
 				4BDC56F22BD11A1E008C58C8 /* BasketViewController.swift in Sources */,
 				4BDC56F02BD1195A008C58C8 /* SearchViewController.swift in Sources */,
