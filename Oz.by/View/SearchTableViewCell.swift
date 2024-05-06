@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {    
+class SearchTableViewCell: UITableViewCell {
     let image = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit

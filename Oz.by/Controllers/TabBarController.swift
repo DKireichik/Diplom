@@ -23,7 +23,7 @@ class TabBarController: UITabBarController {
         let searchViewController = createNavigationController(vc: SearchViewController(), itemName: "Поиск", itemImage: UIImage(systemName: "magnifyingglass")!)
         let basketViewController = createNavigationController(vc: BasketViewController(), itemName: "Корзина", itemImage: UIImage(systemName: "cart")!)
         let favoritesViewController = createNavigationController(vc: FavoritesViewController(), itemName: "Избранное", itemImage: UIImage(systemName: "seal")!)
-        viewControllers = [homeViewController,searchViewController,basketViewController,favoritesViewController]
+        viewControllers = [homeViewController, searchViewController, basketViewController, favoritesViewController]
         selectedViewController = homeViewController
     }
     private func createNavigationController(vc: UIViewController, itemName: String, itemImage: UIImage) -> UINavigationController {

@@ -35,6 +35,7 @@ class BasketFavoritesTableViewCell: UITableViewCell {
         basketButton.addTarget(self, action: #selector(deleteBasket), for: .touchUpInside)
         return basketButton
     }()
+    
     var deleteBasketButton: (() -> Void)?
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

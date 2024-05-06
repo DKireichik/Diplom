@@ -47,7 +47,14 @@ struct Source {
             .init(name: "Ваза", price: 15.4, productAvailability: "Есть в наличии", image: "2", type: .souvenirs),
             .init(name: "Уно", price: 20.5, productAvailability: "Есть в наличии", image: "game3", type: .games),
             .init(name: "Спящие королевы", price: 103.6, productAvailability: "Есть в наличии", image: "game2", type: .games),
-            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games)
+            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games),
+            .init(name: "Соображарий", price: 25.5, productAvailability: "Есть в наличии", image: "think", type: .games),
+            .init(name: "Дубль", price: 5.4, productAvailability: "Есть в наличии", image: "Doubl", type: .games),
+            .init(name: "Факт или фейк", price: 15.2, productAvailability: "Есть в наличии", image: "Fact", type: .games),
+            .init(name: "Крокодил", price: 44.7, productAvailability: "Есть в наличии", image: "crocodile", type: .games),
+            .init(name: "Петух", price: 30.6, productAvailability: "Есть в наличии", image: "chiken", type: .souvenirs),
+            .init(name: "Ангел", price: 18.2, productAvailability: "Есть в наличии", image: "angel", type: .souvenirs),
+            .init(name: "Мини-Дарт Вейдер", price: 54.3, productAvailability: "Есть в наличии", image: "Dart", type: .souvenirs),
         ]
     }
     static func makeProductWithGroup() -> [[ProductItem]] {

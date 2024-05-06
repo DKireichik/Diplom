@@ -55,6 +55,9 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         footer.orderBasketButton = { [self] in
             present(PaymentCardViewController(), animated: true)
             productBasket = []
+            footer.name.text = ""
+            footer.adress.text = ""
+            footer.numberPhone.text = ""
             tableView.reloadData()
         }
         return footer

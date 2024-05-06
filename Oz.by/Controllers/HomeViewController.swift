@@ -17,7 +17,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let preview = Preview()
     lazy var collectionView = UICollectionView(frame: .zero,collectionViewLayout: getCompositionalLayout())
     lazy var dataManager = DataManager()
-
      override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -131,6 +130,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath)
             guard let cellPageControll = cell as? PageControlCollectionViewCell else {return cell}
             cellPageControll.pageControl.numberOfPages = preview.newsImage.count
+            cellPageControll.pageControl.currentPage = indexPath.row
             return cellPageControll
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath)
@@ -167,31 +167,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return header
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let productVC = ProductViewController()
-        let product = Source.makeProduct()[indexPath.row]
-        productVC.imageView.image = UIImage(named: product.image)
-        productVC.labelImage.text = product.name
-        productVC.productAvailability.text = product.productAvailability
-        productVC.price.text = "\(product.price)"+" руб"
-        productVC.title = product.name
-        navigationController?.pushViewController(productVC, animated: true)
+        if indexPath.section == 3 {
+            let productVC = ProductViewController()
+            let product = Source.makeProduct()[indexPath.row]
+            productVC.imageView.image = UIImage(named: product.image)
+            productVC.labelImage.text = product.name
+            productVC.productAvailability.text = product.productAvailability
+            productVC.price.text = "\(product.price)"+" руб"
+            productVC.title = product.name
+            navigationController?.pushViewController(productVC, animated: true)
+        }
     }
-
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let searchViewController = SearchViewController()
         navigationController?.pushViewController(searchViewController, animated: false)
         return false
     }
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if let collectionView = scrollView as? UICollectionView {
-//            let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
-//            let visiblePoint = CGPoint(x: visibleRect.midY, y: visibleRect.midX)
-//            if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
-//                let currentIndex = indexPath.row
-//                if let cell = collectionView.cellForItem(at: indexPath) as? PageControlCollectionViewCell {
-//                    cell.pageControl.currentPage = currentIndex
-//                }
-//            }
-//        }
-//    }
 }

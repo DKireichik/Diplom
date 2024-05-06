@@ -64,7 +64,7 @@ class ProductViewController: UIViewController {
         view.addSubview(basketButton)
         view.addSubview(productAvailability)
         view.addSubview(favoritesButton)
-
+        checkIsItemExistBasket()
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
@@ -97,5 +97,11 @@ class ProductViewController: UIViewController {
         productFavorites.append(product[0])
         data.saveStepFavorites(productFavorites)
         favoritesButton.tintColor = .red
+    }
+    func checkIsItemExistBasket() {
+        let isExist = productBasket.filter{ $0.name == labelImage.text}
+        if isExist.count > 0 {
+            basketButton.setTitle("Товар уже в корзине", for: .normal)
+        }
     }
 }

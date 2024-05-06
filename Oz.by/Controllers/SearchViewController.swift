@@ -81,11 +81,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 }
-extension SearchViewController : UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContext(searchController.searchBar.text!)
     }
-    private func filterContext (_ searchText : String ) {
+    private func filterContext (_ searchText: String ) {
         filteredShop = goods.filter({ (goods: ProductItem) -> Bool in
             return goods.name.lowercased().contains(searchText.lowercased())
         })
