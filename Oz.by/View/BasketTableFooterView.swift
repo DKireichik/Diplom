@@ -41,12 +41,12 @@ class BasketTableFooterView: UIView {
         sum.translatesAutoresizingMaskIntoConstraints = false
         return sum
     }()
-    let adress  = {
-        let adress = UITextField()
-        adress.placeholder = "Введите адрес доставки"
-        adress.borderStyle = .roundedRect
-        adress.translatesAutoresizingMaskIntoConstraints = false
-        return adress
+    let address  = {
+        let address = UITextField()
+        address.placeholder = "Введите адрес доставки"
+        address.borderStyle = .roundedRect
+        address.translatesAutoresizingMaskIntoConstraints = false
+        return address
     }()
     lazy var orderButton = {
         let orderButton = UIButton(type: .system)
@@ -65,7 +65,7 @@ class BasketTableFooterView: UIView {
         addSubview(info)
         addSubview(numberPhone)
         addSubview(name)
-        addSubview(adress)
+        addSubview(address)
         addSubview(sum)
         addSubview(orderButton)
         name.delegate = self
@@ -81,10 +81,10 @@ class BasketTableFooterView: UIView {
             numberPhone.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 10),
             numberPhone.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             numberPhone.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            adress.topAnchor.constraint(equalTo: numberPhone.bottomAnchor, constant: 10),
-            adress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            adress.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            sum.topAnchor.constraint(equalTo: adress.bottomAnchor, constant: 10),
+            address.topAnchor.constraint(equalTo: numberPhone.bottomAnchor, constant: 10),
+            address.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            address.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            sum.topAnchor.constraint(equalTo: address.bottomAnchor, constant: 10),
             sum.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             sum.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             sum.heightAnchor.constraint(equalToConstant: 30),

@@ -35,14 +35,45 @@ class BasketFavoritesTableViewCell: UITableViewCell {
         basketButton.addTarget(self, action: #selector(deleteBasket), for: .touchUpInside)
         return basketButton
     }()
-    
+    lazy var plusButton: UIButton = {
+        let plusButton = UIButton(type: .system)
+        plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        plusButton.translatesAutoresizingMaskIntoConstraints = false
+        plusButton.tintColor = .black
+        plusButton.addTarget(self, action: #selector(plusBasketButton), for: .touchUpInside)
+        return plusButton
+    }()
+    lazy var minusButton: UIButton = {
+        let minusButton = UIButton(type: .system)
+        minusButton.setImage(UIImage(systemName: "minus"), for: .normal)
+        minusButton.translatesAutoresizingMaskIntoConstraints = false
+        minusButton.tintColor = .black
+        minusButton.addTarget(self, action: #selector(minusBasketButton), for: .touchUpInside)
+        return minusButton
+    }()
+    let countProduct = {
+        let countProduct = UILabel()
+        countProduct.textAlignment = .center
+        countProduct.textColor = .orange
+        countProduct.text = "1"
+        countProduct.layer.borderColor = UIColor.gray.cgColor
+        countProduct.layer.borderWidth = 0.5
+        countProduct.translatesAutoresizingMaskIntoConstraints = false
+        return countProduct
+    }()
     var deleteBasketButton: (() -> Void)?
+    var plusProductButton: (() -> Void)?
+    var minusProductButton: (() -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(image)
         contentView.addSubview(labelImage)
         contentView.addSubview(price)
         contentView.addSubview(basketButton)
+        contentView.addSubview(minusButton)
+        contentView.addSubview(plusButton)
+        contentView.addSubview(countProduct)
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -54,7 +85,15 @@ class BasketFavoritesTableViewCell: UITableViewCell {
             price.topAnchor.constraint(equalTo: labelImage.bottomAnchor, constant: 5),
             price.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 12),
             basketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            basketButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            basketButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            minusButton.centerYAnchor.constraint(equalTo: countProduct.centerYAnchor),
+            minusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            countProduct.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            countProduct.trailingAnchor.constraint(equalTo: minusButton.leadingAnchor, constant: -10),
+            countProduct.heightAnchor.constraint(equalToConstant: 30),
+            countProduct.widthAnchor.constraint(equalToConstant: 30),
+            plusButton.centerYAnchor.constraint(equalTo: countProduct.centerYAnchor),
+            plusButton.trailingAnchor.constraint(equalTo: countProduct.leadingAnchor, constant: -10)
         ])
     }
     required init?(coder: NSCoder) {
@@ -62,5 +101,11 @@ class BasketFavoritesTableViewCell: UITableViewCell {
     }
     @objc func deleteBasket (_ sender: UIButton) {
         deleteBasketButton?()
+    }
+    @objc func plusBasketButton (_ sender: UIButton) {
+        plusProductButton?()
+    }
+    @objc func minusBasketButton (_ sender: UIButton) {
+        minusProductButton?()
     }
 }

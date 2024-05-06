@@ -52,7 +52,7 @@ class PaymentCardViewController: UIViewController {
     let order = {
         let order = UILabel()
         order.translatesAutoresizingMaskIntoConstraints = false
-        order.text = "Ваш заказа №"+"\(Int.random(in: 11...35))"+" оплачен, для уточнения даты и времени доставки с вами свяжется наш спецалист"
+        order.text = "Ваш заказа №"+"\(Int.random(in: 11...35))"+" оплачен, для уточнения даты и времени доставки с вами свяжется наш специалист"
         order.font = UIFont.boldSystemFont(ofSize: 26)
         order.numberOfLines = 0
         order.lineBreakMode = .byWordWrapping

@@ -52,7 +52,7 @@ struct Source {
             .init(name: "Дубль", price: 5.4, productAvailability: "Есть в наличии", image: "Doubl", type: .games),
             .init(name: "Факт или фейк", price: 15.2, productAvailability: "Есть в наличии", image: "Fact", type: .games),
             .init(name: "Крокодил", price: 44.7, productAvailability: "Есть в наличии", image: "crocodile", type: .games),
-            .init(name: "Петух", price: 30.6, productAvailability: "Есть в наличии", image: "chiken", type: .souvenirs),
+            .init(name: "Петух", price: 30.6, productAvailability: "Есть в наличии", image: "chicken", type: .souvenirs),
             .init(name: "Ангел", price: 18.2, productAvailability: "Есть в наличии", image: "angel", type: .souvenirs),
             .init(name: "Мини-Дарт Вейдер", price: 54.3, productAvailability: "Есть в наличии", image: "Dart", type: .souvenirs),
         ]
@@ -70,7 +70,7 @@ let encoder = JSONEncoder()
 class DataManager {
     private let userDefaults = UserDefaults(suiteName: "basket")
     private let stepKeys = "stepKeys"
-    private let userDefaultsfavorites = UserDefaults(suiteName: "favorites")
+    private let userDefaultsFavorites = UserDefaults(suiteName: "favorites")
     private let stepKeysFavorites = "stepFavorites"
     func saveStep ( _ step: [ProductItem] ) {
         do {
@@ -93,13 +93,13 @@ class DataManager {
     func saveStepFavorites ( _ step: [ProductItem] ) {
         do {
             let stepData = try encoder.encode(step)
-            userDefaults?.setValue(stepData, forKey: stepKeysFavorites)
+            userDefaultsFavorites?.setValue(stepData, forKey: stepKeysFavorites)
         } catch {
             print("\(error)")
         }
     }
     func obtainStepFavorites() -> [ProductItem] {
-        guard let stepData = userDefaults?.data(forKey: stepKeysFavorites) else { return [] }
+        guard let stepData = userDefaultsFavorites?.data(forKey: stepKeysFavorites) else { return [] }
         do {
             let users = try decoder.decode([ProductItem].self, from: stepData)
             return users

@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (section, evironment) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { (section, environment) -> NSCollectionLayoutSection? in
             switch section {
             case 0:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -150,7 +150,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 dataManager.saveStep(productBasket)
                 cellBooks.basketButton.isEnabled = false
             }
-            cellBooks.addTofavoritesButton = { [self] in
+            cellBooks.addToFavoritesButton = { [self] in
                 productFavorites.append(Source.makeProduct()[indexPath.row])
                 dataManager.saveStepFavorites(productFavorites)
                 cellBooks.favoritesButton.tintColor = .red

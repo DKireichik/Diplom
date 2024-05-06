@@ -19,6 +19,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(label)
+        backgroundColor = .white
         label.frame = bounds
         label.translatesAutoresizingMaskIntoConstraints = false
         label.topAnchor.constraint(equalTo: topAnchor).isActive = true

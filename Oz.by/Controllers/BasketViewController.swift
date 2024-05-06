@@ -43,6 +43,25 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
             self.dataManager.saveStep(productBasket)
             tableView.reloadData()
         }
+        basketCell.plusProductButton = {
+            productBasket.append(basketProduct)
+            self.dataManager.saveStep(productBasket)
+            let productBasketFiltered = productBasket.filter({$0.name == basketProduct.name })
+            basketCell.countProduct.text = "\(productBasketFiltered.count)"
+            basketCell.price.text = "\(Double(basketProduct.price) * Double(productBasketFiltered.count))"
+            tableView.reloadData()
+        }
+        basketCell.minusProductButton = {
+            var productBasketFiltered = productBasket.filter({$0.name == basketProduct.name })
+            if productBasketFiltered.count > 1 {
+                productBasketFiltered.remove(at: 0)
+                productBasket = productBasketFiltered
+                self.dataManager.saveStep(productBasket)
+                basketCell.countProduct.text = "\(productBasketFiltered.count)"
+                basketCell.price.text = "\(Double(basketProduct.price) * Double(productBasketFiltered.count))"
+                tableView.reloadData()
+            }
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -56,7 +75,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
             present(PaymentCardViewController(), animated: true)
             productBasket = []
             footer.name.text = ""
-            footer.adress.text = ""
+            footer.address.text = ""
             footer.numberPhone.text = ""
             tableView.reloadData()
         }

@@ -32,6 +32,7 @@ class ProductViewController: UIViewController {
         price.layer.cornerRadius = 5
         price.layer.masksToBounds = true
         price.backgroundColor = .orange
+        price.textAlignment = .center
         price.translatesAutoresizingMaskIntoConstraints = false
         return price
     }()
@@ -52,7 +53,7 @@ class ProductViewController: UIViewController {
         favoritesButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.tintColor = .black
-        favoritesButton.addTarget(self, action: #selector(addTofavorites), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
         return favoritesButton
     }()
     lazy var data = DataManager()
@@ -91,8 +92,10 @@ class ProductViewController: UIViewController {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
         productBasket.append(product[0])
         data.saveStep(productBasket)
+        basketButton.setTitle("Товар уже в корзине", for: .normal)
+        basketButton.isEnabled = false
     }
-    @objc func addTofavorites (_ sender: UIButton) {
+    @objc func addToFavorites (_ sender: UIButton) {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
         productFavorites.append(product[0])
         data.saveStepFavorites(productFavorites)
@@ -102,6 +105,7 @@ class ProductViewController: UIViewController {
         let isExist = productBasket.filter{ $0.name == labelImage.text}
         if isExist.count > 0 {
             basketButton.setTitle("Товар уже в корзине", for: .normal)
+            basketButton.isEnabled = false
         }
     }
 }

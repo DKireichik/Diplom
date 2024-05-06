@@ -46,11 +46,11 @@ class ProductCollectionViewCell: UICollectionViewCell {
         favoritesButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.tintColor = .black
-        favoritesButton.addTarget(self, action: #selector(addTofavorites), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
         return favoritesButton
     }()
     var addToBasketButton: (() -> Void)?
-    var addTofavoritesButton: (() -> Void)?
+    var addToFavoritesButton: (() -> Void)?
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(imageView)
@@ -82,8 +82,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @objc func addToBasket (_ sender: UIButton) {
        addToBasketButton?()
     }
-    @objc func addTofavorites (_ sender: UIButton) {
-       addTofavoritesButton?()
+    @objc func addToFavorites (_ sender: UIButton) {
+       addToFavoritesButton?()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

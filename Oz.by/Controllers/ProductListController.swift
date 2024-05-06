@@ -28,7 +28,7 @@ class ProductListController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { ( section, evironment) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { ( section, environment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2),
                                                   heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -61,7 +61,7 @@ class ProductListController: UIViewController, UICollectionViewDelegate, UIColle
             dataManager.saveStep(productBasket)
             cellProduct.basketButton.isEnabled = false
         }
-        cellProduct.addTofavoritesButton = { [self] in
+        cellProduct.addToFavoritesButton = { [self] in
             productFavorites.append(productList[indexPath.row])
             dataManager.saveStepFavorites(productFavorites)
             cellProduct.favoritesButton.tintColor = .red

@@ -36,6 +36,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         favoritesCell.image.image = UIImage(named: "\(favoritesProduct.image)")
         favoritesCell.labelImage.text = favoritesProduct.name
         favoritesCell.price.text = "\(favoritesProduct.price)"+" руб"
+        favoritesCell.plusButton.isHidden = true
+        favoritesCell.minusButton.isHidden = true
+        favoritesCell.countProduct.isHidden = true
         favoritesCell.deleteBasketButton = {
             let productBasketFiltered = productFavorites.filter({$0.name != favoritesProduct.name })
             productFavorites = productBasketFiltered
