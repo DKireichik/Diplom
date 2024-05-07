@@ -27,7 +27,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.reloadData()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return productFavorites.count
+        return productFavoritesArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesTableViewCell", for: indexPath)
@@ -39,10 +39,10 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         favoritesCell.plusButton.isHidden = true
         favoritesCell.minusButton.isHidden = true
         favoritesCell.countProduct.isHidden = true
-        favoritesCell.deleteBasketButton = {
-            let productBasketFiltered = productFavorites.filter({$0.name != favoritesProduct.name })
-            productFavorites = productBasketFiltered
-            self.dataManager.saveStepFavorites(productFavorites)
+        favoritesCell.deleteBasketButton = {  [weak self] in
+            let productBasketFiltered = productFavoritesArray.filter({$0.name != favoritesProduct.name })
+            productFavoritesArray = productBasketFiltered
+            self?.dataManager.saveStepFavorites(productFavoritesArray)
             tableView.reloadData()
         }
         return cell

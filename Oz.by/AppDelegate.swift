@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Oz.by
 //
-//  Created by Darya on 18.04.24.
+//  Created by Darya E325: ATTENTIONon 18.04.24.
 //
 
 import UIKit

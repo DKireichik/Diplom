@@ -10,7 +10,6 @@ import UIKit
 class BasketViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView = UITableView()
     lazy var dataManager = DataManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
@@ -28,7 +27,7 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.reloadData()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return productBasket.count
+        return productBasketArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BasketTableViewCell", for: indexPath)
@@ -37,28 +36,26 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
         basketCell.image.image = UIImage(named: "\(basketProduct.image)")
         basketCell.labelImage.text = basketProduct.name
         basketCell.price.text = "\(basketProduct.price)"+" руб"
-        basketCell.deleteBasketButton = {
-            let productBasketFiltered = productBasket.filter({$0.name != basketProduct.name })
-            productBasket = productBasketFiltered
-            self.dataManager.saveStep(productBasket)
+        basketCell.countProduct.text = "\(productBasketArray[indexPath.row].count)"
+        basketCell.deleteBasketButton = { [weak self] in
+            let productBasketFiltered = productBasketArray.filter({$0.name != basketProduct.name })
+            productBasketArray = productBasketFiltered
+            self?.dataManager.saveStep(productBasketArray)
             tableView.reloadData()
         }
-        basketCell.plusProductButton = {
-            productBasket.append(basketProduct)
-            self.dataManager.saveStep(productBasket)
-            let productBasketFiltered = productBasket.filter({$0.name == basketProduct.name })
-            basketCell.countProduct.text = "\(productBasketFiltered.count)"
-            basketCell.price.text = "\(Double(basketProduct.price) * Double(productBasketFiltered.count))"
+        basketCell.plusProductButton = { 
+            if let index = productBasketArray.firstIndex(where: {$0.name == basketProduct.name }) {
+               productBasketArray[index].count = productBasketArray[index].count + 1
+            }
+            basketCell.countProduct.text = "\(productBasketArray[indexPath.row].count)"
             tableView.reloadData()
         }
         basketCell.minusProductButton = {
-            var productBasketFiltered = productBasket.filter({$0.name == basketProduct.name })
-            if productBasketFiltered.count > 1 {
-                productBasketFiltered.remove(at: 0)
-                productBasket = productBasketFiltered
-                self.dataManager.saveStep(productBasket)
-                basketCell.countProduct.text = "\(productBasketFiltered.count)"
-                basketCell.price.text = "\(Double(basketProduct.price) * Double(productBasketFiltered.count))"
+            if productBasketArray[indexPath.row].count > 1 {
+                if let index = productBasketArray.firstIndex(where: {$0.name == basketProduct.name }) {
+                   productBasketArray[index].count = productBasketArray[index].count - 1
+                }
+                basketCell.countProduct.text = "\(productBasketArray[indexPath.row].count)"
                 tableView.reloadData()
             }
         }
@@ -66,14 +63,15 @@ class BasketViewController: UIViewController, UITableViewDataSource, UITableView
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = BasketTableFooterView()
+        footer.backgroundColor = .white
         var resultSum = 0.0
-        productBasket.forEach { item in
-            resultSum += item.price
+        productBasketArray.forEach { item in
+            resultSum += (item.price * Double(item.count))
         }
-        footer.sum.text = "Итого: "+"\(resultSum)"+" руб"
-        footer.orderBasketButton = { [self] in
-            present(PaymentCardViewController(), animated: true)
-            productBasket = []
+        footer.sum.text = "Итого: "+"\(resultSum.rounded(toPlaces: 2))"+" руб"
+        footer.orderBasketButton = { [weak self] in
+            self?.present(PaymentCardViewController(), animated: true)
+            productBasketArray = []
             footer.name.text = ""
             footer.address.text = ""
             footer.numberPhone.text = ""

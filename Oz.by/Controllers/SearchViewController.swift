@@ -77,7 +77,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             let productListVC = ProductListController()
             productListVC.productList = Source.makeProductWithGroup()[indexPath.row]
-            navigationController?.pushViewController(productListVC, animated: true)
+            navigationController?.pushViewController(productListVC, animated: false)
         }
     }
 }

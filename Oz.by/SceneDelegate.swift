@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
                 guard let windowScene = (scene as? UIWindowScene) else { return }
                 let window = UIWindow(windowScene: windowScene)
-                let vc = TabBarController()
-                window.rootViewController = vc
+                let viewController = TabBarController()
+                window.rootViewController = viewController
                 self.window = window
                 window.makeKeyAndVisible()
     }

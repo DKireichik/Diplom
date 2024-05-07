@@ -8,14 +8,15 @@
 import Foundation
 import UIKit
 
-var productBasket: [ProductItem] = []
-var productFavorites: [ProductItem] = []
-struct ProductItem: Codable {
+var productBasketArray: [ProductItem] = []
+var productFavoritesArray: [ProductItem] = []
+struct ProductItem: Codable, Hashable {
     var name: String
     var price: Double
     var productAvailability: String
     var image: String
     var type: Shoptype
+    var count: Int
 }
 struct SearchType {
     var name: String
@@ -39,22 +40,21 @@ struct SearchList {
 struct Source {
     static func makeProduct() -> [ProductItem] {
         [
-            .init(name: "Томас Маан", price: 10.5, productAvailability: "Есть в наличии", image: "Book", type: .books),
-            .init(name: "Аллан Гай", price: 17.3, productAvailability: "Есть в наличии", image: "Book1", type: .books),
-            .init(name: "Уве", price: 13.9, productAvailability: "Нет в наличии", image: "Book2", type: .books),
-            .init(name: "Титаник", price: 25.6, productAvailability: "Есть в наличии", image: "Book3", type: .books),
-            .init(name: "Карандаш", price: 1.9, productAvailability: "Есть в наличии", image: "1", type: .souvenirs),
-            .init(name: "Ваза", price: 15.4, productAvailability: "Есть в наличии", image: "2", type: .souvenirs),
-            .init(name: "Уно", price: 20.5, productAvailability: "Есть в наличии", image: "game3", type: .games),
-            .init(name: "Спящие королевы", price: 103.6, productAvailability: "Есть в наличии", image: "game2", type: .games),
-            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games),
-            .init(name: "Соображарий", price: 25.5, productAvailability: "Есть в наличии", image: "think", type: .games),
-            .init(name: "Дубль", price: 5.4, productAvailability: "Есть в наличии", image: "Doubl", type: .games),
-            .init(name: "Факт или фейк", price: 15.2, productAvailability: "Есть в наличии", image: "Fact", type: .games),
-            .init(name: "Крокодил", price: 44.7, productAvailability: "Есть в наличии", image: "crocodile", type: .games),
-            .init(name: "Петух", price: 30.6, productAvailability: "Есть в наличии", image: "chicken", type: .souvenirs),
-            .init(name: "Ангел", price: 18.2, productAvailability: "Есть в наличии", image: "angel", type: .souvenirs),
-            .init(name: "Мини-Дарт Вейдер", price: 54.3, productAvailability: "Есть в наличии", image: "Dart", type: .souvenirs),
+            .init(name: "Томас Маан", price: 10.5, productAvailability: "Есть в наличии", image: "Book", type: .books, count: 1),
+            .init(name: "Аллан Гай", price: 17.3, productAvailability: "Есть в наличии", image: "Book1", type: .books, count: 1),
+            .init(name: "Уве", price: 13.5, productAvailability: "Нет в наличии", image: "Book2", type: .books, count: 1),
+            .init(name: "Титаник", price: 25.6, productAvailability: "Есть в наличии", image: "Book3", type: .books, count: 1),
+            .init(name: "Карандаш", price: 1.5, productAvailability: "Есть в наличии", image: "1", type: .souvenirs, count: 1),
+            .init(name: "Ваза", price: 15.4, productAvailability: "Есть в наличии", image: "2", type: .souvenirs, count: 1),
+            .init(name: "Уно", price: 20.5, productAvailability: "Есть в наличии", image: "game3", type: .games, count: 1),
+            .init(name: "Спящие королевы", price: 103.6, productAvailability: "Есть в наличии", image: "game2", type: .games, count: 1),
+            .init(name: "Манчикен", price: 12.61, productAvailability: "Есть в наличии", image: "game1", type: .games, count: 1),
+            .init(name: "Соображарий", price: 25.5, productAvailability: "Есть в наличии", image: "think", type: .games, count: 1),
+            .init(name: "Дубль", price: 5.4, productAvailability: "Есть в наличии", image: "Doubl", type: .games, count: 1),
+            .init(name: "Факт или фейк", price: 15.2, productAvailability: "Есть в наличии", image: "Fact", type: .games, count: 1),
+            .init(name: "Крокодил", price: 44.7, productAvailability: "Есть в наличии", image: "crocodile", type: .games, count: 1),
+            .init(name: "Ангел", price: 18.2, productAvailability: "Есть в наличии", image: "angel", type: .souvenirs, count: 1),
+            .init(name: "Мини-Дарт Вейдер", price: 54.3, productAvailability: "Есть в наличии", image: "Dart", type: .souvenirs, count: 1)
         ]
     }
     static func makeProductWithGroup() -> [[ProductItem]] {

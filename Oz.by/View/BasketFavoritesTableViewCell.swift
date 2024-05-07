@@ -55,7 +55,6 @@ class BasketFavoritesTableViewCell: UITableViewCell {
         let countProduct = UILabel()
         countProduct.textAlignment = .center
         countProduct.textColor = .orange
-        countProduct.text = "1"
         countProduct.layer.borderColor = UIColor.gray.cgColor
         countProduct.layer.borderWidth = 0.5
         countProduct.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +63,6 @@ class BasketFavoritesTableViewCell: UITableViewCell {
     var deleteBasketButton: (() -> Void)?
     var plusProductButton: (() -> Void)?
     var minusProductButton: (() -> Void)?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(image)

@@ -90,19 +90,19 @@ class ProductViewController: UIViewController {
     }
     @objc func addToBasket (_ sender: UIButton) {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
-        productBasket.append(product[0])
-        data.saveStep(productBasket)
+        productBasketArray.append(product[0])
+        data.saveStep(productBasketArray)
         basketButton.setTitle("Товар уже в корзине", for: .normal)
         basketButton.isEnabled = false
     }
     @objc func addToFavorites (_ sender: UIButton) {
         let product  = Source.makeProduct().filter { $0.name == labelImage.text}
-        productFavorites.append(product[0])
-        data.saveStepFavorites(productFavorites)
+        productFavoritesArray.append(product[0])
+        data.saveStepFavorites(productFavoritesArray)
         favoritesButton.tintColor = .red
     }
     func checkIsItemExistBasket() {
-        let isExist = productBasket.filter{ $0.name == labelImage.text}
+        let isExist = productBasketArray.filter { $0.name == labelImage.text}
         if isExist.count > 0 {
             basketButton.setTitle("Товар уже в корзине", for: .normal)
             basketButton.isEnabled = false

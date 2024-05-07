@@ -56,14 +56,14 @@ class ProductListController: UIViewController, UICollectionViewDelegate, UIColle
         cellProduct.price.text = "\(productList[indexPath.row].price)"+" руб"
         cellProduct.productAvailability.text = productList[indexPath.row].productAvailability
         cellProduct.basketButton.tintColor = .orange
-        cellProduct.addToBasketButton = { [self] in
-            productBasket.append(productList[indexPath.row])
-            dataManager.saveStep(productBasket)
+        cellProduct.addToBasketButton = {
+            productBasketArray.append(self.productList[indexPath.row])
+            self.dataManager.saveStep(productBasketArray)
             cellProduct.basketButton.isEnabled = false
         }
-        cellProduct.addToFavoritesButton = { [self] in
-            productFavorites.append(productList[indexPath.row])
-            dataManager.saveStepFavorites(productFavorites)
+        cellProduct.addToFavoritesButton = {
+            productFavoritesArray.append(self.productList[indexPath.row])
+            self.dataManager.saveStepFavorites(productFavoritesArray)
             cellProduct.favoritesButton.tintColor = .red
         }
         return cellProduct
@@ -76,6 +76,6 @@ class ProductListController: UIViewController, UICollectionViewDelegate, UIColle
         productVC.productAvailability.text = product.productAvailability
         productVC.price.text = "\(product.price)"+" руб"
         productVC.title = product.name
-        navigationController?.pushViewController(productVC, animated: true)
+        navigationController?.pushViewController(productVC, animated: false)
     }
 }

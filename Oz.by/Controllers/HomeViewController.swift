@@ -15,7 +15,7 @@ class Preview {
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, UISearchControllerDelegate {
     private let searchController  = UISearchController(searchResultsController: nil)
     let preview = Preview()
-    lazy var collectionView = UICollectionView(frame: .zero,collectionViewLayout: getCompositionalLayout())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCompositionalLayout())
     lazy var dataManager = DataManager()
      override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,14 +145,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cellBooks.price.text = "\(Source.makeProduct()[indexPath.row].price)"+" руб"
             cellBooks.productAvailability.text = Source.makeProduct()[indexPath.row].productAvailability
             cellBooks.basketButton.tintColor = .orange
-            cellBooks.addToBasketButton = { [self] in
-                productBasket.append(Source.makeProduct()[indexPath.row])
-                dataManager.saveStep(productBasket)
+            cellBooks.addToBasketButton = { [weak self] in
+                productBasketArray.append(Source.makeProduct()[indexPath.row])
+                self?.dataManager.saveStep(productBasketArray)
                 cellBooks.basketButton.isEnabled = false
             }
-            cellBooks.addToFavoritesButton = { [self] in
-                productFavorites.append(Source.makeProduct()[indexPath.row])
-                dataManager.saveStepFavorites(productFavorites)
+            cellBooks.addToFavoritesButton = { [weak self] in
+                productFavoritesArray.append(Source.makeProduct()[indexPath.row])
+                self?.dataManager.saveStepFavorites(productFavoritesArray)
                 cellBooks.favoritesButton.tintColor = .red
             }
             return cellBooks
@@ -175,7 +175,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             productVC.productAvailability.text = product.productAvailability
             productVC.price.text = "\(product.price)"+" руб"
             productVC.title = product.name
-            navigationController?.pushViewController(productVC, animated: true)
+            navigationController?.pushViewController(productVC, animated: false)
         }
     }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
