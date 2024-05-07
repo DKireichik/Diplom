@@ -23,7 +23,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15)
         ])
     }
     required init?(coder: NSCoder) {

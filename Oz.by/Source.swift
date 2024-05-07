@@ -10,7 +10,7 @@ import UIKit
 
 var productBasketArray: [ProductItem] = []
 var productFavoritesArray: [ProductItem] = []
-struct ProductItem: Codable, Hashable {
+struct ProductItem: Codable {
     var name: String
     var price: Double
     var productAvailability: String

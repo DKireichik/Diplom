@@ -107,7 +107,6 @@ class PaymentCardViewController: UIViewController {
     }
     private func setNumberMask(textField: UITextField, mask: String, string: String, range: NSRange) -> String {
         let text = textField.text ?? ""
-        print(text)
         let card = (text as NSString).replacingCharacters(in: range, with: string)
         let number = card.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         var result = ""

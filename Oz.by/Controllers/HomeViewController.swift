@@ -8,7 +8,7 @@
 import UIKit
 
 class Preview {
-    var headerLabelText: [String] = ["", "", "Истории", "Книги"]
+    var headerLabelText: [String] = ["", "Истории", "Книги"]
     var discountImage: [UIImage] = [.discont1, .news1, .news2]
     var newsImage: [UIImage] = [.news, .news1, .news2]
 }
@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
      override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = .init(title: nil, image: .init(systemName: "bell"), target: nil, action: nil)
+         navigationItem.rightBarButtonItem = .init(title: nil, image: .init(systemName: "bell"), target: self, action: #selector(pushNatification))
         navigationItem.rightBarButtonItem?.tintColor = .orange
         navigationItem.titleView = searchController.searchBar
         searchController.searchBar.placeholder = "Введите название товара"
@@ -39,7 +39,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.id)
         collectionView.register(DiscountCollectionViewCell.self, forCellWithReuseIdentifier: DiscountCollectionViewCell.id)
         collectionView.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.id)
-        collectionView.register(PageControlCollectionViewCell.self, forCellWithReuseIdentifier: PageControlCollectionViewCell.id)
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
     }
     func getCompositionalLayout() -> UICollectionViewCompositionalLayout {
@@ -55,15 +54,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 layoutSection.orthogonalScrollingBehavior = .continuous
                 return layoutSection
             case 1:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                       heightDimension: .fractionalHeight(1/15))
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                let layoutSection = NSCollectionLayoutSection(group: group)
-                layoutSection.orthogonalScrollingBehavior = .continuous
-                return layoutSection
-            case 2:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                       heightDimension: .fractionalHeight(1))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -78,7 +68,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 let headerSection = self.createSectionHeader()
                 layoutSection.boundarySupplementaryItems = [headerSection]
                 return layoutSection
-            case 3:
+            case 2:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2),
                                                       heightDimension: .fractionalHeight(1))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -103,17 +93,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return layoutSectionHeader
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return 3
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
             return preview.newsImage.count
         case 1:
-            return 1
-        case 2:
             return preview.discountImage.count
-        case 3:
+        case 2:
             return 4
         default:
             fatalError()
@@ -127,17 +115,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cellNews.imageView.image = preview.newsImage[indexPath.row]
             return cellNews
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PageControlCollectionViewCell.id, for: indexPath)
-            guard let cellPageControll = cell as? PageControlCollectionViewCell else {return cell}
-            cellPageControll.pageControl.numberOfPages = preview.newsImage.count
-            cellPageControll.pageControl.currentPage = indexPath.row
-            return cellPageControll
-        case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscountCollectionViewCell.id, for: indexPath)
             guard let cellDiscounts = cell as? DiscountCollectionViewCell else {return cell}
             cellDiscounts.imageView.image = preview.discountImage[indexPath.row]
             return cellDiscounts
-        case 3:
+        case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.id, for: indexPath)
             guard let cellBooks = cell as? ProductCollectionViewCell else {return cell}
             cellBooks.imageView.image = UIImage(named: Source.makeProduct()[indexPath.row].image)
@@ -167,7 +149,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         return header
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == 2 {
             let productVC = ProductViewController()
             let product = Source.makeProduct()[indexPath.row]
             productVC.imageView.image = UIImage(named: product.image)
@@ -182,5 +164,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let searchViewController = SearchViewController()
         navigationController?.pushViewController(searchViewController, animated: false)
         return false
+    }
+    @objc func pushNatification() {
+        navigationController?.pushViewController(NatificationViewController(), animated: false)
     }
 }
